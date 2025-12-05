@@ -17,7 +17,7 @@ html, body {
   color:#ffd97a;
 }
 
-/* Fundo de estrelas */
+/* Estrelas */
 .star {
   position:fixed;
   border-radius:50%;
@@ -86,19 +86,6 @@ button {
   transition: left .2s, top .2s;
 }
 
-/* Resultado */
-#result {
-  display:none;
-  margin-top:20px;
-  color:#fffbe6;
-}
-
-#result img {
-  width:150px;
-  margin:10px;
-  border-radius:10px;
-  box-shadow:0 0 15px #ffd97a;
-}
 </style>
 </head>
 <body>
@@ -118,24 +105,23 @@ for(let i=0;i<50;i++){
 </script>
 
 <div class="card">
-  <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
-  <div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
+<h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
+<div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
 
-  <div id="buttons">
-    <button id="yes" onclick="sayYes()">SIM 💛</button>
-    <button id="no">NÃO ❌</button>
-  </div>
-
-  <div id="result">
-    <h2>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</h2>
-    <p>Vou garantir os ingressos — marca só o dia que você pode!</p>
-    <div>
-      <img src="/mnt/data/F1D071D7-7F95-441E-A8C4-C7F4B0EF9507.jpeg" alt="pôster convite" />
-    </div>
-  </div>
+<div id="buttons">
+  <button id="yes" onclick="openWhatsApp()">SIM 💛</button>
+  <button id="no">NÃO ❌</button>
+</div>
 </div>
 
 <script>
+
+// BOTÃO SIM → WHATSAPP
+function openWhatsApp(){
+  window.location.href = "https://wa.me/5585986928054?text=Quero%20assistir%20Harry%20Potter%20contigo!%20%F0%9F%AA%84%E2%9C%A8%0AMe%20diz%20os%20dias%20e%20hor%C3%A1rios%20das%20sess%C3%B5es.";
+}
+
+// BOTÃO NÃO FUGINDO
 const noBtn = document.getElementById('no');
 
 function moveNoButton() {
@@ -150,19 +136,12 @@ function moveNoButton() {
   noBtn.style.top = y + 'px';
 }
 
-// PC
 noBtn.addEventListener("mouseover", moveNoButton);
-
-// Celular
 noBtn.addEventListener("touchstart", function(e){
   e.preventDefault();
   moveNoButton();
 });
 
-function sayYes(){
-  document.getElementById('buttons').style.display = 'none';
-  document.getElementById('result').style.display = 'block';
-}
 </script>
 
 </body>
