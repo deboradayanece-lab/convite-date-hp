@@ -11,130 +11,85 @@
 html, body {
   height:100%;
   overflow:hidden;
-  font-family: Verdana, Tahoma, sans-serif;
+  font-family: 'Verdana', sans-serif;
 }
 
-/* Fundo mágico */
+/* Fundo animado */
 body {
-  background: radial-gradient(circle at center, #2b1a00, #120900, #070300);
-  animation: pulseBG 12s ease-in-out infinite alternate;
+  background: radial-gradient(circle at center, #1a0d00 0%, #0d0600 100%);
+  animation: bgMove 12s ease-in-out infinite alternate;
   display:flex;
   justify-content:center;
   align-items:center;
-  color: #f3e8d0;
-  position: relative;
+  color:#f3e8d0;
+  position:relative;
 }
 
-@keyframes pulseBG {
-  0% { filter: brightness(0.95); }
-  100% { filter: brightness(1.2); }
+@keyframes bgMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
 
-/* NÉVOA */
-.fog {
+/* Partículas mágicas subindo */
+.magic {
   position: absolute;
-  width: 200%;
-  height: 200%;
-  background: url('https://i.imgur.com/3fJ1P4R.png') repeat;
-  opacity: 0.12;
-  animation: fogMove 40s linear infinite;
-  top: -50%;
-  left: -50%;
-  z-index: 0;
-}
-
-@keyframes fogMove {
-  0% { transform: translateX(0) translateY(0); }
-  100% { transform: translateX(500px) translateY(-300px); }
-}
-
-/* ESTRELAS */
-.star {
-  position: absolute;
-  background: #ffebad;
+  width: 4px;
+  height: 12px;
+  background: rgba(255, 225, 160, 0.9);
   border-radius: 50%;
-  opacity: 0.7;
-  animation: twinkle 2s infinite alternate ease-in-out;
-}
-
-@keyframes twinkle {
-  0% { opacity: 0.2; transform: translateY(0px) scale(1); }
-  100% { opacity: 1; transform: translateY(-6px) scale(1.3); }
-}
-
-/* VARINHA FLUTUANDO */
-.wand {
-  position: absolute;
-  right: 25px;
-  top: 50%;
-  width: 130px;
-  transform: translateY(-50%);
-  animation: float 3.5s ease-in-out infinite alternate, rotate 6s linear infinite;
-  z-index: 3;
-  opacity: 0.95;
-}
-
-@keyframes float {
-  0% { transform: translateY(-50%) translateX(0); }
-  100% { transform: translateY(-60%) translateX(12px); }
-}
-
-@keyframes rotate {
-  0% { rotate: 0deg; }
-  100% { rotate: 8deg; }
-}
-
-/* PARTÍCULAS MÁGICAS */
-.particle {
-  position: absolute;
-  bottom: -20px;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, #ffe9a9, #ffca52);
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: rise 4s linear infinite;
-  filter: blur(0.5px);
+  filter: blur(1px);
+  animation: rise 3s linear infinite;
 }
 
 @keyframes rise {
-  0% { transform: translateY(0) scale(1); opacity: 0.9; }
-  100% { transform: translateY(-140vh) scale(0.3); opacity: 0; }
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-150vh) scale(0.2); opacity: 0; }
 }
 
-/* CARTÃO */
+/* Varinha */
+.wand {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  width: 140px;
+  animation: floatWand 4s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+@keyframes floatWand {
+  0% { transform: translateY(0px) rotate(-8deg); }
+  50% { transform: translateY(-15px) rotate(-4deg); }
+  100% { transform: translateY(0px) rotate(-8deg); }
+}
+
+/* Cartão */
 .card {
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.55);
   padding: 35px;
   border-radius: 18px;
   width: min(850px, 95%);
-  border: 2px solid rgba(255, 217, 140, 0.4);
-  box-shadow: 0 0 25px rgba(255, 225, 150, 0.25);
   text-align: center;
-  position: relative;
-  z-index: 5;
+  box-shadow: 0 0 25px rgba(255, 225, 150, 0.25);
+  z-index: 2;
 }
 
-/* TÍTULO */
+/* Título */
 #title {
   font-size: 32px;
   margin-bottom: 15px;
-  color: #ffdb93;
-  text-shadow: 0 0 10px rgba(255, 215, 100, 0.4);
 }
 
-/* SUBTÍTULO */
+/* Subtítulo */
 .subtitle {
-  margin-top: 5px;
   font-size: 20px;
   opacity: 0.9;
 }
 
-/* BOTÕES */
+/* Botões */
 #buttons {
   margin-top: 30px;
-  position: relative;
   height: 70px;
+  position: relative;
 }
 
 button {
@@ -143,45 +98,42 @@ button {
   border-radius: 10px;
   border: none;
   cursor: pointer;
+  font-family: Verdana;
 }
 
-/* SIM */
+/* Botão SIM */
 #sim {
-  background: #ffebc2;
+  background: #f5e0b5;
   color: #2e1b00;
   margin-right: 15px;
-  transition: transform 0.2s;
 }
-#sim:hover { transform: scale(1.07); }
 
-/* NÃO */
+/* Botão NÃO */
 #nao {
   background: #d9534f;
   color: #fff;
   position: absolute;
   left: 60%;
   top: 0;
-  transition: left 0.3s ease, top 0.3s ease;
+  transition: left .3s ease, top .3s ease;
 }
 
-/* RESULTADO */
+/* Resultado */
 #result {
-  display: none;
-  margin-top: 25px;
-  font-size: 20px;
+  display:none;
+  margin-top:25px;
+  font-size:20px;
 }
 </style>
 </head>
 <body>
 
-<div class="fog"></div>
-
-<!-- Varinha -->
-<img class="wand" src="https://i.imgur.com/P6H2l3H.png" alt="Varinha">
+<!-- VARINHA -->
+<img class="wand" src="https://i.imgur.com/2p5Yz6C.png">
 
 <div class="card">
   <div id="title">Você gostaria de assistir Harry Potter comigo no cinema?</div>
-  <div class="subtitle">Prometo pipoca, conversa e muita magia ✨</div>
+  <div class="subtitle">Prometo pipoca, risadas e magia ✨</div>
 
   <div id="buttons">
     <button id="sim">SIM 💛</button>
@@ -195,50 +147,31 @@ button {
 </div>
 
 <script>
-// ESTRELAS
-for(let i=0; i<90; i++){
-  const star = document.createElement('div');
-  star.classList.add('star');
-  star.style.left = Math.random() * window.innerWidth + 'px';
-  star.style.top = Math.random() * window.innerHeight + 'px';
-  star.style.width = (Math.random()*3 + 1) + 'px';
-  star.style.height = star.style.width;
-  star.style.animationDuration = (Math.random()*3 + 2) + 's';
-  document.body.appendChild(star);
-}
-
-// PARTÍCULAS SUBINDO
+// Criar partículas mágicas subindo
 function criarParticula() {
-  const p = document.createElement('div');
-  p.classList.add('particle');
-
-  p.style.left = (Math.random() * window.innerWidth) + "px";
-
-  const size = Math.random() * 6 + 4;
-  p.style.width = size + "px";
-  p.style.height = size + "px";
-
-  p.style.animationDuration = (Math.random() * 3 + 3) + "s";
-
+  const p = document.createElement("div");
+  p.classList.add("magic");
+  p.style.left = Math.random() * innerWidth + "px";
+  p.style.bottom = "-20px";
+  p.style.animationDuration = (Math.random() * 2 + 2) + "s";
   document.body.appendChild(p);
 
-  setTimeout(() => p.remove(), 6000);
+  setTimeout(() => p.remove(), 3000);
 }
 setInterval(criarParticula, 120);
 
-// BOTÃO NÃO FUGINDO
+// Botão NÃO fugindo
 const btnNao = document.getElementById("nao");
 function fugir() {
-  const padding = 20;
-  const maxX = window.innerWidth - btnNao.offsetWidth - padding;
-  const maxY = window.innerHeight - btnNao.offsetHeight - padding;
+  const maxX = window.innerWidth - btnNao.offsetWidth - 20;
+  const maxY = window.innerHeight - btnNao.offsetHeight - 20;
   btnNao.style.left = Math.random() * maxX + "px";
   btnNao.style.top = Math.random() * maxY + "px";
 }
 btnNao.addEventListener("mouseover", fugir);
 btnNao.addEventListener("touchstart", fugir);
 
-// SIM – AGORA 0.8 SEGUNDOS
+// Botão SIM com tempo de 0.8s
 const btnSim = document.getElementById("sim");
 const result = document.getElementById("result");
 const buttons = document.getElementById("buttons");
@@ -249,15 +182,13 @@ btnSim.onclick = () => {
   result.style.display = "block";
 
   let count = 0.8;
-  countEl.textContent = count.toFixed(1);
-
   const interval = setInterval(() => {
     count -= 0.1;
     countEl.textContent = count.toFixed(1);
     if(count <= 0) {
       clearInterval(interval);
       const numero = "5585986928054";
-      const msg = encodeURIComponent("Aceito sim, assistir Harry Potter contigo! ✨🍿");
+      const msg = encodeURIComponent("Aceito sim assistir Harry Potter contigo! ✨🍿");
       window.location.href = `https://wa.me/${numero}?text=${msg}`;
     }
   }, 100);
