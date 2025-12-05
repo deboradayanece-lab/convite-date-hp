@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite Harry Potter</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  height:100%;
+  font-family:'Georgia', serif;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(to bottom, #1a0d00, #3e1a00);
+  color:#ffd97a;
+}
+
+/* Fundo de estrelas */
+.star {
+  position:fixed;
+  border-radius:50%;
+  background:white;
+  opacity:0.8;
+  pointer-events:none;
+  animation:floatStar linear infinite;
+}
+@keyframes floatStar {
+  0% { transform: translateY(120vh) scale(0.5); opacity:0; }
+  10% { opacity:0.3; }
+  50% { opacity:0.6; }
+  100% { transform: translateY(-120vh) scale(1); opacity:0; }
+}
+
+/* Painel central */
+.card {
+  background: rgba(0,0,0,0.6);
+  padding:30px;
+  border-radius:14px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+  width:min(900px,95%);
+}
+h1 {
+  font-size:32px;
+  margin-bottom:20px;
+  text-shadow:2px 2px 8px #000;
+}
+.subtitle {
+  color:#f7ecd6;
+  opacity:0.9;
+  margin-bottom:20px;
+}
+
+/* Botões */
+#buttons { position:relative; height:50px; margin-top:10px; }
+
+button {
+  padding:12px 25px;
+  font-size:16px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  transition: transform .1s;
+}
+
+#yes {
+  background: linear-gradient(135deg,#ffd97a,#d89f2a);
+  color:#1b0b00;
+  font-weight:700;
+  margin-right:12px;
+}
+
+#no {
+  background: linear-gradient(135deg,#9b1c0e,#ff5d3e);
+  color:#fff;
+  position:absolute;
+  left:70%; /* começa longe do SIM */
+}
+
+/* Resultado */
+#result {
+  display:none;
+  margin-top:20px;
+  color:#fffbe6;
+}
+
+#result img {
+  width:150px;
+  margin:10px;
+  border-radius:10px;
+  box-shadow:0 0 15px #ffd97a;
+}
+</style>
+</head>
+<body>
+
+<!-- Estrelas -->
+<script>
+for(let i=0;i<50;i++){
+  const star=document.createElement('div');
+  star.className='star';
+  star.style.width=(2+Math.random()*3)+'px';
+  star.style.height=star.style.width;
+  star.style.left=Math.random()*100+'vw';
+  star.style.top=Math.random()*100+'vh';
+  star.style.animationDuration=(8+Math.random()*12)+'s';
+  document.body.appendChild(star);
+}
+</script>
+
+<div class="card">
+<h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
+<div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
+
+<div id="buttons">
+  <button id="yes" onclick="sayYes()">SIM 💛</button>
+  <button id="no" onmouseover="escapeButton()">NÃO ❌</button>
+</div>
+
+<div id="result">
+  <h2>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</h2>
+  <p>Vou garantir os ingressos — marca só o dia que você pode!</p>
+  <div>
+    <img src="https://i.imgur.com/Q3vQ6QK.png" alt="poster1">
+    <img src="https://i.imgur.com/ZfYfC0f.jpeg" alt="poster2">
+    <img src="https://i.imgur.com/DLwLd6R.jpeg" alt="poster3">
+  </div>
+</div>
+</div>
+
+<script>
+function escapeButton(){
+  const no = document.getElementById('no');
+  const padding = 20;
+  const maxX = window.innerWidth - no.offsetWidth - padding;
+  const maxY = window.innerHeight - no.offsetHeight - padding;
+
+  let x = Math.random() * (maxX - padding) + padding;
+  let y = Math.random() * (maxY - padding) + padding;
+
+  no.style.left = x + 'px';
+  no.style.top = y + 'px';
+}
+
+function sayYes(){
+  document.getElementById('buttons').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
