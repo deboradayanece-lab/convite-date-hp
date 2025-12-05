@@ -118,23 +118,21 @@ for(let i=0;i<50;i++){
 </script>
 
 <div class="card">
-<h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
-<div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
+  <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
+  <div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
 
-<div id="buttons">
-  <button id="yes" onclick="sayYes()">SIM 💛</button>
-  <button id="no">NÃO ❌</button>
-</div>
-
-<div id="result">
-  <h2>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</h2>
-  <p>Vou garantir os ingressos — marca só o dia que você pode!</p>
-  <div>
-    <img src="https://i.imgur.com/Q3vQ6QK.png">
-    <img src="https://i.imgur.com/ZfYfC0f.jpeg">
-    <img src="https://i.imgur.com/DLwLd6R.jpeg">
+  <div id="buttons">
+    <button id="yes" onclick="sayYes()">SIM 💛</button>
+    <button id="no">NÃO ❌</button>
   </div>
-</div>
+
+  <div id="result">
+    <h2>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</h2>
+    <p>Vou garantir os ingressos — marca só o dia que você pode!</p>
+    <div>
+      <img src="/mnt/data/F1D071D7-7F95-441E-A8C4-C7F4B0EF9507.jpeg" alt="pôster convite" />
+    </div>
+  </div>
 </div>
 
 <script>
@@ -152,10 +150,10 @@ function moveNoButton() {
   noBtn.style.top = y + 'px';
 }
 
-// para PC
+// PC
 noBtn.addEventListener("mouseover", moveNoButton);
 
-// para celular (tela sensível)
+// Celular
 noBtn.addEventListener("touchstart", function(e){
   e.preventDefault();
   moveNoButton();
