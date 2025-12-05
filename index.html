@@ -14,10 +14,11 @@ html, body {
   font-family: 'Verdana', sans-serif;
 }
 
-/* Fundo animado */
+/* Fundo animado flutuando */
 body {
-  background: radial-gradient(circle at center, #1a0d00 0%, #0d0600 100%);
-  animation: bgMove 12s ease-in-out infinite alternate;
+  background: linear-gradient(270deg, #1a0d00, #3e1a00, #1a0d00);
+  background-size: 500% 500%;
+  animation: floatBG 18s ease-in-out infinite;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -25,9 +26,10 @@ body {
   position:relative;
 }
 
-@keyframes bgMove {
-  0% { background-position: 0% 0%; }
-  100% { background-position: 100% 100%; }
+@keyframes floatBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Partículas mágicas subindo */
@@ -44,22 +46,6 @@ body {
 @keyframes rise {
   0% { transform: translateY(0) scale(1); opacity: 1; }
   100% { transform: translateY(-150vh) scale(0.2); opacity: 0; }
-}
-
-/* Varinha */
-.wand {
-  position: absolute;
-  right: 40px;
-  bottom: 40px;
-  width: 140px;
-  animation: floatWand 4s ease-in-out infinite;
-  opacity: 0.9;
-}
-
-@keyframes floatWand {
-  0% { transform: translateY(0px) rotate(-8deg); }
-  50% { transform: translateY(-15px) rotate(-4deg); }
-  100% { transform: translateY(0px) rotate(-8deg); }
 }
 
 /* Cartão */
@@ -128,9 +114,6 @@ button {
 </head>
 <body>
 
-<!-- VARINHA -->
-<img class="wand" src="https://i.imgur.com/2p5Yz6C.png">
-
 <div class="card">
   <div id="title">Você gostaria de assistir Harry Potter comigo no cinema?</div>
   <div class="subtitle">Prometo pipoca, risadas e magia ✨</div>
@@ -142,7 +125,7 @@ button {
 
   <div id="result">
     <p>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</p>
-    <p>Aguarde só <span id="count">0.8</span> segundos…</p>
+    <p>Aguarde só <span id="count">10</span> segundos…</p>
   </div>
 </div>
 
@@ -155,7 +138,6 @@ function criarParticula() {
   p.style.bottom = "-20px";
   p.style.animationDuration = (Math.random() * 2 + 2) + "s";
   document.body.appendChild(p);
-
   setTimeout(() => p.remove(), 3000);
 }
 setInterval(criarParticula, 120);
@@ -171,7 +153,7 @@ function fugir() {
 btnNao.addEventListener("mouseover", fugir);
 btnNao.addEventListener("touchstart", fugir);
 
-// Botão SIM com tempo de 0.8s
+// Botão SIM com tempo de 10s
 const btnSim = document.getElementById("sim");
 const result = document.getElementById("result");
 const buttons = document.getElementById("buttons");
@@ -181,17 +163,17 @@ btnSim.onclick = () => {
   buttons.style.display = "none";
   result.style.display = "block";
 
-  let count = 0.8;
+  let count = 10;
   const interval = setInterval(() => {
-    count -= 0.1;
-    countEl.textContent = count.toFixed(1);
+    count--;
+    countEl.textContent = count;
     if(count <= 0) {
       clearInterval(interval);
       const numero = "5585986928054";
       const msg = encodeURIComponent("Aceito sim assistir Harry Potter contigo! ✨🍿");
       window.location.href = `https://wa.me/${numero}?text=${msg}`;
     }
-  }, 100);
+  }, 1000);
 };
 </script>
 
