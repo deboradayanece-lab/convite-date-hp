@@ -1,181 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Convite Harry Potter</title>
-
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body {
-  height:100%;
-  overflow:hidden;
-  font-family: 'Verdana', sans-serif;
-}
-
-/* Fundo animado flutuando */
-body {
-  background: linear-gradient(270deg, #1a0d00, #3e1a00, #1a0d00);
-  background-size: 500% 500%;
-  animation: floatBG 18s ease-in-out infinite;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#f3e8d0;
-  position:relative;
-}
-
-@keyframes floatBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Partículas mágicas subindo */
-.magic {
-  position: absolute;
-  width: 4px;
-  height: 12px;
-  background: rgba(255, 225, 160, 0.9);
-  border-radius: 50%;
-  filter: blur(1px);
-  animation: rise 3s linear infinite;
-}
-
-@keyframes rise {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-150vh) scale(0.2); opacity: 0; }
-}
-
-/* Cartão */
-.card {
-  background: rgba(0,0,0,0.55);
-  padding: 35px;
-  border-radius: 18px;
-  width: min(850px, 95%);
-  text-align: center;
-  box-shadow: 0 0 25px rgba(255, 225, 150, 0.25);
-  z-index: 2;
-}
-
-/* Título */
-#title {
-  font-size: 32px;
-  margin-bottom: 15px;
-}
-
-/* Subtítulo */
-.subtitle {
-  font-size: 20px;
-  opacity: 0.9;
-}
-
-/* Botões */
-#buttons {
-  margin-top: 30px;
-  height: 70px;
-  position: relative;
-}
-
-button {
-  padding: 12px 28px;
-  font-size: 18px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-family: Verdana;
-}
-
-/* Botão SIM */
-#sim {
-  background: #f5e0b5;
-  color: #2e1b00;
-  margin-right: 15px;
-}
-
-/* Botão NÃO */
-#nao {
-  background: #d9534f;
-  color: #fff;
-  position: absolute;
-  left: 60%;
-  top: 0;
-  transition: left .3s ease, top .3s ease;
-}
-
-/* Resultado */
-#result {
-  display:none;
-  margin-top:25px;
-  font-size:20px;
-}
-</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Convite Mágico</title>
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<div class="card">
-  <div id="title">Você gostaria de assistir Harry Potter comigo no cinema?</div>
-  <div class="subtitle">Prometo pipoca, risadas e magia ✨</div>
+<div class="particles"></div>
 
-  <div id="buttons">
-    <button id="sim">SIM 💛</button>
-    <button id="nao">NÃO ❌</button>
-  </div>
+<div class="container">
+    <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
+    <p>Prometo pipoca, conversa e muita magia ✨</p>
 
-  <div id="result">
-    <p>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</p>
-    <p>Aguarde só <span id="count">10</span> segundos…</p>
-  </div>
+    <div class="buttons">
+        <a class="yes" href="#">SIM 💛</a>
+        <a class="no" href="#">NÃO ❌</a>
+    </div>
 </div>
 
-<script>
-// Criar partículas mágicas subindo
-function criarParticula() {
-  const p = document.createElement("div");
-  p.classList.add("magic");
-  p.style.left = Math.random() * innerWidth + "px";
-  p.style.bottom = "-20px";
-  p.style.animationDuration = (Math.random() * 2 + 2) + "s";
-  document.body.appendChild(p);
-  setTimeout(() => p.remove(), 3000);
-}
-setInterval(criarParticula, 120);
-
-// Botão NÃO fugindo
-const btnNao = document.getElementById("nao");
-function fugir() {
-  const maxX = window.innerWidth - btnNao.offsetWidth - 20;
-  const maxY = window.innerHeight - btnNao.offsetHeight - 20;
-  btnNao.style.left = Math.random() * maxX + "px";
-  btnNao.style.top = Math.random() * maxY + "px";
-}
-btnNao.addEventListener("mouseover", fugir);
-btnNao.addEventListener("touchstart", fugir);
-
-// Botão SIM com tempo de 10s
-const btnSim = document.getElementById("sim");
-const result = document.getElementById("result");
-const buttons = document.getElementById("buttons");
-const countEl = document.getElementById("count");
-
-btnSim.onclick = () => {
-  buttons.style.display = "none";
-  result.style.display = "block";
-
-  let count = 10;
-  const interval = setInterval(() => {
-    count--;
-    countEl.textContent = count;
-    if(count <= 0) {
-      clearInterval(interval);
-      const numero = "5585986928054";
-      const msg = encodeURIComponent("Aceito sim assistir Harry Potter contigo! ✨🍿");
-      window.location.href = `https://wa.me/${numero}?text=${msg}`;
-    }
-  }, 1000);
-};
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
