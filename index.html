@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Convite Harry Potter</title>
+
+<!-- FONTE HARRY POTTER -->
+<link href="https://fonts.cdnfonts.com/css/harry-potter" rel="stylesheet">
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body {
@@ -17,7 +21,7 @@ html, body {
   color:#ffd97a;
 }
 
-/* Estrelas */
+/* Fundo de estrelas */
 .star {
   position:fixed;
   border-radius:50%;
@@ -42,16 +46,25 @@ html, body {
   position:relative;
   z-index:2;
   width:min(900px,95%);
+  animation: fadeIn 2s ease;
 }
+
+/* TITULO HARRY POTTER */
 h1 {
-  font-size:32px;
+  font-family: 'Harry Potter', serif;
+  font-size:40px;
   margin-bottom:20px;
-  text-shadow:2px 2px 8px #000;
+  opacity:0;
+  animation: magicText 3s ease forwards;
+  text-shadow: 0 0 10px #ffdf82, 0 0 20px #ffbf00;
 }
+
+/* Subtítulo com magia */
 .subtitle {
-  color:#f7ecd6;
-  opacity:0.9;
+  opacity:0;
   margin-bottom:20px;
+  animation: fadeIn 3s ease forwards 1.5s;
+  text-shadow: 0 0 8px #ffd97a;
 }
 
 /* Botões */
@@ -59,17 +72,29 @@ h1 {
   position:relative; 
   height:60px; 
   margin-top:10px; 
+  opacity:0;
+  animation: fadeInUp 2s ease forwards 2.5s;
 }
 
 button {
   padding:12px 25px;
-  font-size:16px;
+  font-size:18px;
   border-radius:10px;
   border:none;
   cursor:pointer;
   transition: transform .1s;
+  animation: float 3s ease-in-out infinite;
+  box-shadow: 0 0 12px #ffd97a, 0 0 20px #ffbf00 inset;
 }
 
+/* Animar flutuação */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Botão SIM */
 #yes {
   background: linear-gradient(135deg,#ffd97a,#d89f2a);
   color:#1b0b00;
@@ -77,6 +102,7 @@ button {
   margin-right:12px;
 }
 
+/* Botão NÃO */
 #no {
   background: linear-gradient(135deg,#9b1c0e,#ff5d3e);
   color:#fff;
@@ -86,6 +112,30 @@ button {
   transition: left .2s, top .2s;
 }
 
+/* Resultado */
+#result {
+  display:none;
+  margin-top:20px;
+  color:#fffbe6;
+  text-shadow:0 0 10px #ffd97a;
+  animation: fadeIn 2s ease;
+}
+
+/* EFEITOS DE TEXTO */
+@keyframes magicText {
+  0% { opacity:0; letter-spacing:8px; }
+  100% { opacity:1; letter-spacing:1px; }
+}
+
+@keyframes fadeIn {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
 </style>
 </head>
 <body>
@@ -109,19 +159,17 @@ for(let i=0;i<50;i++){
 <div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
 
 <div id="buttons">
-  <button id="yes" onclick="openWhatsApp()">SIM 💛</button>
+  <button id="yes" onclick="sayYes()">SIM 💛</button>
   <button id="no">NÃO ❌</button>
+</div>
+
+<div id="result">
+  <h2>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</h2>
+  <p>Vou garantir os ingressos — marca só o dia que você pode!</p>
 </div>
 </div>
 
 <script>
-
-// BOTÃO SIM → WHATSAPP
-function openWhatsApp(){
-  window.location.href = "https://wa.me/5585986928054?text=Quero%20assistir%20Harry%20Potter%20contigo!%20%F0%9F%AA%84%E2%9C%A8%0AMe%20diz%20os%20dias%20e%20hor%C3%A1rios%20das%20sess%C3%B5es.";
-}
-
-// BOTÃO NÃO FUGINDO
 const noBtn = document.getElementById('no');
 
 function moveNoButton() {
@@ -142,6 +190,18 @@ noBtn.addEventListener("touchstart", function(e){
   moveNoButton();
 });
 
+function sayYes(){
+  document.getElementById('buttons').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  const msg = encodeURIComponent(
+    "Aceito sim, assistir Harry Potter contigo!✨\nQuais os horários das sessões?"
+  );
+
+  setTimeout(()=>{
+    window.location.href = "https://wa.me/5585986928054?text=" + msg;
+  }, 900);
+}
 </script>
 
 </body>
