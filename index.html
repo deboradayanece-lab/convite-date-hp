@@ -11,12 +11,41 @@
 html, body {
   height:100%;
   overflow:hidden;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+/* Fundo gradiente animado */
+body {
+  background: linear-gradient(270deg, #1a0d00, #3e1a00, #1a0d00);
+  background-size: 600% 600%;
+  animation: floatBG 20s ease infinite;
   display:flex;
   justify-content:center;
   align-items:center;
-  background: linear-gradient(to bottom, #1a0d00, #3e1a00);
-  font-family: Verdana, Tahoma, sans-serif;
   color: #f3e8d0;
+  position: relative;
+}
+
+@keyframes floatBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Partículas (estrelas) */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: translateY(0px); }
+  100% { opacity: 1; transform: translateY(-5px); }
 }
 
 /* Cartão */
@@ -27,6 +56,8 @@ html, body {
   width: min(850px, 95%);
   text-align: center;
   box-shadow: 0 0 25px rgba(255, 225, 150, 0.2);
+  position: relative;
+  z-index: 1;
 }
 
 /* Título */
@@ -98,11 +129,24 @@ button {
 
   <div id="result">
     <p>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</p>
-    <p>Aguarde só <span id="count">18</span> segundos…</p>
+    <p>Aguarde só <span id="count">12</span> segundos…</p>
   </div>
 </div>
 
 <script>
+// Criar estrelas aleatórias
+for(let i=0; i<80; i++){
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.left = Math.random() * window.innerWidth + 'px';
+  star.style.top = Math.random() * window.innerHeight + 'px';
+  star.style.width = (Math.random()*3 + 1) + 'px';
+  star.style.height = star.style.width;
+  star.style.animationDuration = (Math.random()*3 + 2) + 's';
+  document.body.appendChild(star);
+}
+
+// Botão NÃO fugindo
 const btnNao = document.getElementById("nao");
 
 function fugir() {
@@ -118,6 +162,7 @@ function fugir() {
 btnNao.addEventListener("mouseover", fugir);
 btnNao.addEventListener("touchstart", fugir);
 
+// Botão SIM com 12 segundos
 const btnSim = document.getElementById("sim");
 const result = document.getElementById("result");
 const buttons = document.getElementById("buttons");
@@ -127,7 +172,7 @@ btnSim.onclick = () => {
   buttons.style.display = "none";
   result.style.display = "block";
 
-  let count = 18;
+  let count = 12;
   const interval = setInterval(() => {
     count--;
     countEl.textContent = count;
