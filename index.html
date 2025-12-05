@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Convite Harry Potter</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; font-family:Arial, sans-serif; overflow:hidden; background:#000010; color:#fff; display:flex; justify-content:center; align-items:center; }
+html, body { height:100%; font-family:'Georgia', serif; overflow:hidden; display:flex; justify-content:center; align-items:center; background: linear-gradient(to bottom, #1a0d00, #3e1a00); color:#ffd97a; }
 
-/* FUNDO ESTRELAS */
+/* Fundo de estrelas */
 .star { position:fixed; border-radius:50%; background:white; opacity:0.8; pointer-events:none; animation:floatStar linear infinite; }
 @keyframes floatStar {
   0% { transform: translateY(120vh) scale(0.5); opacity:0; }
@@ -17,7 +17,7 @@ html, body { height:100%; font-family:Arial, sans-serif; overflow:hidden; backgr
   100% { transform: translateY(-120vh) scale(1); opacity:0; }
 }
 
-/* PAINEL CENTRAL */
+/* Painel central */
 .card {
   background: rgba(0,0,0,0.6);
   padding:30px;
@@ -27,32 +27,27 @@ html, body { height:100%; font-family:Arial, sans-serif; overflow:hidden; backgr
   z-index:2;
   width:min(900px,95%);
 }
-h1 { color:#ffd97a; margin-bottom:20px; }
+h1 { font-size:32px; margin-bottom:20px; text-shadow:2px 2px 8px #000; }
 .subtitle { color:#f7ecd6; opacity:0.9; margin-bottom:20px; }
 
-/* BOTÕES */
+/* Botões */
 #buttons { position:relative; height:50px; }
 button { padding:12px 25px; font-size:16px; border-radius:10px; border:none; cursor:pointer; transition: transform .1s; }
-#yes { background:#ffd97a; color:#1b0b00; margin-right:12px; font-weight:700; }
-#no { background:#ff4747; color:#fff; position:absolute; left:50%; transform:translateX(20px); }
+#yes { background: linear-gradient(135deg,#ffd97a,#d89f2a); color:#1b0b00; font-weight:700; margin-right:12px; }
+#no { background: linear-gradient(135deg,#9b1c0e,#ff5d3e); color:#fff; position:absolute; left:50%; transform:translateX(20px); }
 
-/* RESULTADO */
+/* Resultado */
 #result { display:none; margin-top:20px; color:#fffbe6; }
-#result img { width:140px; margin:8px; border-radius:8px; }
+#result img { width:150px; margin:10px; border-radius:10px; box-shadow:0 0 15px #ffd97a; }
 
-/* ELEMENTOS FLUTUANTES */
-.floating {
-  position:fixed;
-  z-index:1;
-  pointer-events:none;
-  filter:drop-shadow(0 6px 12px rgba(0,0,0,0.6));
-}
+/* Elementos flutuantes */
+.floating { position:fixed; z-index:1; pointer-events:none; filter:drop-shadow(0 6px 12px rgba(0,0,0,0.6)); }
 @keyframes floatUp { 0%{transform:translateY(110vh) rotate(0deg); opacity:0;} 10%{opacity:0.35;} 50%{opacity:0.55;} 100%{transform:translateY(-140vh) rotate(360deg); opacity:0;} }
 </style>
 </head>
 <body>
 
-<!-- ESTRELAS -->
+<!-- Estrelas -->
 <script>
 for(let i=0;i<50;i++){
   const star=document.createElement('div');
@@ -66,17 +61,17 @@ for(let i=0;i<50;i++){
 }
 </script>
 
-<!-- ELEMENTOS FLUTUANTES -->
-<img class="floating" id="carta1" src="https://i.imgur.com/8G8b4Xv.png" style="left:10%;width:100px;animation:floatUp 15s linear infinite;">
-<img class="floating" id="carta2" src="https://i.imgur.com/8G8b4Xv.png" style="left:80%;width:120px;animation:floatUp 20s linear infinite;">
-<img class="floating" id="carta3" src="https://i.imgur.com/8G8b4Xv.png" style="left:45%;width:110px;animation:floatUp 18s linear infinite;">
+<!-- Elementos flutuantes -->
+<img class="floating" src="https://i.imgur.com/8G8b4Xv.png" style="left:10%;width:100px;animation:floatUp 15s linear infinite;">
+<img class="floating" src="https://i.imgur.com/8G8b4Xv.png" style="left:80%;width:120px;animation:floatUp 20s linear infinite;">
+<img class="floating" src="https://i.imgur.com/8G8b4Xv.png" style="left:45%;width:110px;animation:floatUp 18s linear infinite;">
 
-<img class="floating" id="varinha1" src="https://i.imgur.com/J3XHcP3.png" style="left:25%;width:90px;animation:floatUp 17s linear infinite;">
-<img class="floating" id="varinha2" src="https://i.imgur.com/J3XHcP3.png" style="left:70%;width:95px;animation:floatUp 19s linear infinite;">
+<img class="floating" src="https://i.imgur.com/J3XHcP3.png" style="left:25%;width:90px;animation:floatUp 17s linear infinite;">
+<img class="floating" src="https://i.imgur.com/J3XHcP3.png" style="left:70%;width:95px;animation:floatUp 19s linear infinite;">
 
-<img class="floating" id="edwiges" src="https://i.imgur.com/0p5rFxh.png" style="left:55%;width:140px;animation:floatUp 22s linear infinite;opacity:0.7;">
-<img class="floating" id="brilho1" src="https://i.imgur.com/4Jba88v.png" style="left:15%;width:60px;animation:floatUp 12s linear infinite;opacity:0.9;filter:blur(2px);">
-<img class="floating" id="brilho2" src="https://i.imgur.com/4Jba88v.png" style="left:65%;width:50px;animation:floatUp 14s linear infinite;opacity:0.9;filter:blur(2px);">
+<img class="floating" src="https://i.imgur.com/0p5rFxh.png" style="left:55%;width:140px;animation:floatUp 22s linear infinite;opacity:0.7;">
+<img class="floating" src="https://i.imgur.com/4Jba88v.png" style="left:15%;width:60px;animation:floatUp 12s linear infinite;opacity:0.9;filter:blur(2px);">
+<img class="floating" src="https://i.imgur.com/4Jba88v.png" style="left:65%;width:50px;animation:floatUp 14s linear infinite;opacity:0.9;filter:blur(2px);">
 
 <div class="card">
 <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
