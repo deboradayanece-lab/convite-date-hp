@@ -6,6 +6,9 @@
 
 <title>Convite Harry Potter</title>
 
+<!-- Fonte Cinzel -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body {
@@ -16,7 +19,7 @@ html, body {
   align-items:center;
   background: linear-gradient(to bottom, #1a0d00, #3e1a00);
   font-family: Arial, Helvetica, sans-serif;
-  color: #f3e8d0; /* bege suave e legível */
+  color: #f3e8d0;
 }
 
 /* Cartão */
@@ -31,8 +34,9 @@ html, body {
 
 /* Título com efeito de digitação */
 #title {
-  font-size: 34px;
-  font-weight: bold;
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  font-weight: 700;
   border-right: 3px solid #f3e8d0;
   white-space: nowrap;
   overflow: hidden;
@@ -47,6 +51,7 @@ html, body {
   margin-top: 18px;
   font-size: 20px;
   opacity: 0.9;
+  font-family: 'Cinzel', serif;
 }
 
 #buttons {
@@ -79,6 +84,7 @@ button {
   position: absolute;
   left: 60%;
   top: 0;
+  transition: left 0.3s ease, top 0.3s ease;
 }
 
 /* Resultado */
@@ -104,7 +110,7 @@ button {
 
   <div id="result">
     <p>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</p>
-    <p>Aguarde só um instante…</p>
+    <p>Aguarde só <span id="count">15</span> segundos…</p>
   </div>
 
 </div>
@@ -128,18 +134,27 @@ function fugir() {
 btnNao.addEventListener("mouseover", fugir);
 btnNao.addEventListener("touchstart", fugir);
 
-/* Botão SIM → WhatsApp 15s */
-document.getElementById("sim").onclick = () => {
+/* Botão SIM → WhatsApp 15s com contador */
+const btnSim = document.getElementById("sim");
+const result = document.getElementById("result");
+const buttons = document.getElementById("buttons");
+const countEl = document.getElementById("count");
 
-  const numero = "5585986928054";
-  const msg = encodeURIComponent("Aceito sim, assistir Harry Potter contigo!\nQuais os horários das sessões?");
+btnSim.onclick = () => {
+  buttons.style.display = "none";
+  result.style.display = "block";
 
-  document.getElementById("buttons").style.display = "none";
-  document.getElementById("result").style.display = "block";
-
-  setTimeout(() => {
-    window.location.href = `https://wa.me/${numero}?text=${msg}`;
-  }, 15000); // 15 segundos
+  let count = 15;
+  const interval = setInterval(() => {
+    count--;
+    countEl.textContent = count;
+    if(count <= 0) {
+      clearInterval(interval);
+      const numero = "5585986928054";
+      const msg = encodeURIComponent("Aceito sim, assistir Harry Potter contigo!\nQuais os horários das sessões?");
+      window.location.href = `https://wa.me/${numero}?text=${msg}`;
+    }
+  }, 1000);
 };
 </script>
 
