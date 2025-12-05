@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Especial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000;
+            color: #fff;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        #buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #no {
+            background-color: #ff4747;
+            color: white;
+            position: absolute;
+        }
+
+        #result {
+            display: none;
+            margin-top: 40px;
+        }
+
+        img {
+            width: 200px;
+            margin: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
+
+    <div id="buttons">
+        <button id="yes" onclick="sayYes()">SIM 💛</button>
+        <button id="no" onmouseover="escapeButton()">NÃO ❌</button>
+    </div>
+
+    <div id="result">
+        <h2>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</h2>
+        <p>Prepare-se para a magia! 🪄✨</p>
+
+        <img src="https://i.imgur.com/Q3vQ6QK.png">
+        <img src="https://i.imgur.com/ZfYfC0f.jpeg">
+        <img src="https://i.imgur.com/DLwLd6R.jpeg">
+    </div>
+
+    <script>
+        function escapeButton() {
+            const noButton = document.getElementById("no");
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            noButton.style.left = x + "px";
+            noButton.style.top = y + "px";
+        }
+
+        function sayYes() {
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>
