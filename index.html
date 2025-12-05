@@ -1,133 +1,187 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Convite Mágico</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Convite Harry Potter</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(180deg, #0d0a0a, #1b1105, #0d0a0a);
-        animation: bgFloat 10s ease-in-out infinite alternate;
-        font-family: 'Poppins', sans-serif;
-        color: #f5d39f;
-    }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  height:100%;
+  overflow:hidden;
+  font-family: Verdana, Tahoma, sans-serif;
+}
 
-    @keyframes bgFloat {
-        0% { background-position: 0 0; }
-        100% { background-position: 0 50px; }
-    }
+/* Fundo flutuante */
+body {
+  background: linear-gradient(270deg, #1a0d00, #3e1a00, #1a0d00);
+  background-size: 600% 600%;
+  animation: floatBG 20s ease infinite;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color: #f3e8d0;
+  position: relative;
+}
 
-    /* Container do texto */
-    .card {
-        padding: 30px;
-        width: 85%;
-        max-width: 380px;
-        border: 2px solid rgba(255, 204, 102, 0.4);
-        border-radius: 20px;
-        text-align: center;
-        backdrop-filter: blur(3px);
-        background: rgba(0, 0, 0, 0.35);
-        position: relative;
-        z-index: 2;
-    }
+@keyframes floatBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    h1 {
-        font-size: 26px;
-        font-weight: 600;
-        line-height: 1.3;
-    }
+/* Estrelas */
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
 
-    p {
-        margin-top: 10px;
-        font-size: 17px;
-    }
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: translateY(0px); }
+  100% { opacity: 1; transform: translateY(-5px); }
+}
 
-    /* Botões */
-    .btn-sim {
-        margin-top: 20px;
-        display: inline-block;
-        background: #ffe5b6;
-        padding: 12px 35px;
-        border-radius: 10px;
-        color: #3b2b00;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        border: none;
-    }
+/* Cartão */
+.card {
+  background: rgba(0,0,0,0.6);
+  padding: 35px;
+  border-radius: 18px;
+  width: min(850px, 95%);
+  text-align: center;
+  box-shadow: 0 0 25px rgba(255, 225, 150, 0.2);
+  position: relative;
+  z-index: 1;
+}
 
-    .btn-nao {
-        position: absolute;
-        right: -20px;
-        bottom: -20px;
-        background: #ff5a5a;
-        color: white;
-        border: none;
-        font-weight: bold;
-        padding: 12px 25px;
-        border-radius: 12px;
-        cursor: pointer;
-    }
+/* Título */
+#title {
+  font-size: 32px;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
 
-    /* Partículas */
-    .particle {
-        position: absolute;
-        background: #ffdd99;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        opacity: 0.8;
-        animation: subir 10s linear infinite;
-    }
+/* Subtítulo */
+.subtitle {
+  margin-top: 5px;
+  font-size: 20px;
+  opacity: 0.9;
+}
 
-    @keyframes subir {
-        0% {
-            transform: translateY(100vh) scale(0.6);
-            opacity: 0;
-        }
-        30% {
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-10vh) scale(1);
-            opacity: 0;
-        }
-    }
+/* Botões */
+#buttons {
+  margin-top: 30px;
+  position: relative;
+  height: 70px;
+}
+
+button {
+  padding: 12px 28px;
+  font-size: 18px;
+  font-weight: normal;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: Verdana, Tahoma, sans-serif;
+}
+
+/* SIM */
+#sim {
+  background: #f5e0b5;
+  color: #2e1b00;
+  margin-right: 15px;
+}
+
+/* NÃO */
+#nao {
+  background: #d9534f;
+  color: #fff;
+  position: absolute;
+  left: 60%;
+  top: 0;
+  transition: left 0.3s ease, top 0.3s ease;
+}
+
+/* Resultado */
+#result {
+  display: none;
+  margin-top: 25px;
+  font-size: 20px;
+}
 </style>
 </head>
-
 <body>
 
-<div id="particles"></div>
-
 <div class="card">
-    <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
-    <p>Prometo pipoca, conversa e muita magia ✨</p>
+  <div id="title">Você gostaria de assistir Harry Potter comigo no cinema?</div>
+  <div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
 
-    <button class="btn-sim">SIM 💛</button>
-    <button class="btn-nao">NÃO ✖</button>
+  <div id="buttons">
+    <button id="sim">SIM 💛</button>
+    <button id="nao">NÃO ❌</button>
+  </div>
+
+  <div id="result">
+    <p>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</p>
+    <p>Aguarde só <span id="count">12</span> segundos…</p>
+  </div>
 </div>
 
 <script>
-    // GERAR PARTÍCULAS
-    const container = document.getElementById("particles");
+// Criar estrelas aleatórias
+for(let i=0; i<80; i++){
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.left = Math.random() * window.innerWidth + 'px';
+  star.style.top = Math.random() * window.innerHeight + 'px';
+  star.style.width = (Math.random()*3 + 1) + 'px';
+  star.style.height = star.style.width;
+  star.style.animationDuration = (Math.random()*3 + 2) + 's';
+  document.body.appendChild(star);
+}
 
-    for (let i = 0; i < 80; i++) {
-        let p = document.createElement("div");
-        p.classList.add("particle");
-        p.style.left = Math.random() * 100 + "vw";
-        p.style.animationDelay = Math.random() * 10 + "s";
-        p.style.opacity = Math.random();
-        p.style.width = p.style.height = (Math.random() * 5 + 2) + "px";
-        container.appendChild(p);
+// Botão NÃO fugindo
+const btnNao = document.getElementById("nao");
+
+function fugir() {
+  const padding = 20;
+  const maxX = window.innerWidth - btnNao.offsetWidth - padding;
+  const maxY = window.innerHeight - btnNao.offsetHeight - padding;
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+  btnNao.style.left = x + "px";
+  btnNao.style.top = y + "px";
+}
+
+btnNao.addEventListener("mouseover", fugir);
+btnNao.addEventListener("touchstart", fugir);
+
+// Botão SIM com 12 segundos
+const btnSim = document.getElementById("sim");
+const result = document.getElementById("result");
+const buttons = document.getElementById("buttons");
+const countEl = document.getElementById("count");
+
+btnSim.onclick = () => {
+  buttons.style.display = "none";
+  result.style.display = "block";
+
+  let count = 12;
+  const interval = setInterval(() => {
+    count--;
+    countEl.textContent = count;
+    if(count <= 0) {
+      clearInterval(interval);
+      const numero = "5585986928054";
+      const msg = encodeURIComponent("Aceito sim, assistir Harry Potter contigo!\nQuais os horários das sessões?");
+      window.location.href = `https://wa.me/${numero}?text=${msg}`;
     }
+  }, 1000);
+};
 </script>
 
 </body>
