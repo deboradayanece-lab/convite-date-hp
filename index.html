@@ -3,125 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Convite Harry Potter</title>
+
+<!-- Fonte Cinzel -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { height:100%; font-family:'Georgia', serif; overflow:hidden; display:flex; justify-content:center; align-items:center; background-color: #0a0a0a; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  height:100%;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(to bottom, #1a0d00, #3e1a00);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f3e8d0;
+}
 
-    /* Fundo das luzinhas */
-    canvas { position: absolute; top:0; left:0; width:100%; height:100%; z-index:0; }
+/* Cartão */
+.card {
+  background: rgba(0,0,0,0.55);
+  padding: 35px;
+  border-radius: 18px;
+  width: min(850px, 95%);
+  text-align: center;
+  box-shadow: 0 0 25px rgba(255, 225, 150, 0.15);
+}
 
-    .container {
-        position: relative;
-        z-index: 1;
-        text-align: center;
-        color: #fff;
-        padding: 20px;
-        background: rgba(0,0,0,0.5);
-        border-radius: 10px;
-    }
+/* Título com efeito de digitação */
+#title {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  font-weight: 700;
+  border-right: 3px solid #f3e8d0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 5s steps(60) forwards, blink .7s infinite;
+}
 
-    button {
-        font-family: 'Georgia', serif;
-        font-size: 20px;
-        padding: 10px 25px;
-        margin: 10px;
-        cursor: pointer;
-        border: 2px solid #fff;
-        border-radius: 8px;
-        background: transparent;
-        color: #fff;
-        transition: 0.3s;
-    }
+@keyframes typing { from { width: 0; } to { width: 100%; } }
+@keyframes blink { 50% { border-color: transparent; } }
 
-    button:hover {
-        background: #fff;
-        color: #000;
-    }
+.subtitle {
+  margin-top: 18px;
+  font-size: 20px;
+  opacity: 0.9;
+  font-family: 'Cinzel', serif;
+}
 
-    #message { margin-top: 20px; font-size: 18px; }
+#buttons {
+  margin-top: 30px;
+  position: relative;
+  height: 70px;
+}
+
+/* Botões */
+button {
+  padding: 12px 28px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* SIM */
+#sim {
+  background: #f5e0b5;
+  color: #2e1b00;
+  margin-right: 15px;
+}
+
+/* NÃO */
+#nao {
+  background: #d9534f;
+  color: #fff;
+  position: absolute;
+  left: 60%;
+  top: 0;
+  transition: left 0.3s ease, top 0.3s ease;
+}
+
+/* Resultado */
+#result {
+  display: none;
+  margin-top: 25px;
+  font-size: 20px;
+}
 </style>
 </head>
 <body>
 
-<canvas id="bg"></canvas>
+<div class="card">
+  
+  <div id="title">Você gostaria de assistir Harry Potter comigo no cinema?</div>
 
-<div class="container">
-    <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
-    <p>Prometo pipoca, conversa e muito encanto ✨</p>
-    <button id="sim">SIM</button>
+  <div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
+
+  <div id="buttons">
+    <button id="sim">SIM 💛</button>
     <button id="nao">NÃO ❌</button>
-    <div id="message"></div>
+  </div>
+
+  <div id="result">
+    <p>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</p>
+    <p>Aguarde só <span id="count">15</span> segundos…</p>
+  </div>
+
 </div>
 
 <script>
-    // -------------------
-    // Temporizador 9s
-    // -------------------
-    const simBtn = document.getElementById('sim');
-    const naoBtn = document.getElementById('nao');
-    const message = document.getElementById('message');
+/* Botão NÃO fugindo */
+const btnNao = document.getElementById("nao");
 
-    simBtn.addEventListener('click', () => {
-        message.textContent = 'EU SABIA QUE VOCÊ DIRIA SIM ✨ Aguarde 9 segundos...';
-        setTimeout(() => {
-            window.location.href = 'https://wa.me/'; // link do WhatsApp
-        }, 9000);
-    });
+function fugir() {
+  const padding = 20;
+  const maxX = window.innerWidth - btnNao.offsetWidth - padding;
+  const maxY = window.innerHeight - btnNao.offsetHeight - padding;
 
-    naoBtn.addEventListener('click', () => {
-        message.textContent = 'Oh não! 😢';
-    });
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
 
-    // -------------------
-    // Fundo com luzinhas flutuantes
-    // -------------------
-    const canvas = document.getElementById('bg');
-    const ctx = canvas.getContext('2d');
-    let w = canvas.width = window.innerWidth;
-    let h = canvas.height = window.innerHeight;
+  btnNao.style.left = x + "px";
+  btnNao.style.top = y + "px";
+}
 
-    const stars = [];
-    const numStars = 80;
+btnNao.addEventListener("mouseover", fugir);
+btnNao.addEventListener("touchstart", fugir);
 
-    function random(min, max) {
-        return Math.random() * (max - min) + min;
+/* Botão SIM → WhatsApp 15s com contador */
+const btnSim = document.getElementById("sim");
+const result = document.getElementById("result");
+const buttons = document.getElementById("buttons");
+const countEl = document.getElementById("count");
+
+btnSim.onclick = () => {
+  buttons.style.display = "none";
+  result.style.display = "block";
+
+  let count = 15;
+  const interval = setInterval(() => {
+    count--;
+    countEl.textContent = count;
+    if(count <= 0) {
+      clearInterval(interval);
+      const numero = "5585986928054";
+      const msg = encodeURIComponent("Aceito sim, assistir Harry Potter contigo!\nQuais os horários das sessões?");
+      window.location.href = https://wa.me/${numero}?text=${msg};
     }
-
-    for(let i=0; i<numStars; i++){
-        stars.push({
-            x: random(0,w),
-            y: random(0,h),
-            radius: random(1,3),
-            dx: random(-0.2,0.2),
-            dy: random(-0.2,0.2)
-        });
-    }
-
-    function animate() {
-        ctx.clearRect(0,0,w,h);
-        for(let i=0;i<stars.length;i++){
-            const s = stars[i];
-            s.x += s.dx;
-            s.y += s.dy;
-
-            if(s.x < 0 || s.x > w) s.dx = -s.dx;
-            if(s.y < 0 || s.y > h) s.dy = -s.dy;
-
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.radius, 0, Math.PI*2);
-            ctx.fillStyle = 'rgba(255,255,255,0.8)';
-            ctx.fill();
-        }
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    window.addEventListener('resize', () => {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-    });
+  }, 1000);
+};
 </script>
 
 </body>
