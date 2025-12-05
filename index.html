@@ -3,185 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Convite Harry Potter</title>
-
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body {
-  height:100%;
-  overflow:hidden;
-  font-family: Verdana, Tahoma, sans-serif;
-}
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; font-family:'Georgia', serif; overflow:hidden; display:flex; justify-content:center; align-items:center; background-color: #0a0a0a; }
 
-/* Fundo flutuante */
-body {
-  background: linear-gradient(270deg, #1a0d00, #3e1a00, #1a0d00);
-  background-size: 600% 600%;
-  animation: floatBG 20s ease infinite;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color: #f3e8d0;
-  position: relative;
-}
+    /* Fundo das luzinhas */
+    canvas { position: absolute; top:0; left:0; width:100%; height:100%; z-index:0; }
 
-@keyframes floatBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+    .container {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: #fff;
+        padding: 20px;
+        background: rgba(0,0,0,0.5);
+        border-radius: 10px;
+    }
 
-/* Estrelas */
-.star {
-  position: absolute;
-  background: #fff;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: twinkle 2s infinite alternate;
-}
+    button {
+        font-family: 'Georgia', serif;
+        font-size: 20px;
+        padding: 10px 25px;
+        margin: 10px;
+        cursor: pointer;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        background: transparent;
+        color: #fff;
+        transition: 0.3s;
+    }
 
-@keyframes twinkle {
-  0% { opacity: 0.2; transform: translateY(0px); }
-  100% { opacity: 1; transform: translateY(-5px); }
-}
+    button:hover {
+        background: #fff;
+        color: #000;
+    }
 
-/* Cartão */
-.card {
-  background: rgba(0,0,0,0.6);
-  padding: 35px;
-  border-radius: 18px;
-  width: min(850px, 95%);
-  text-align: center;
-  box-shadow: 0 0 25px rgba(255, 225, 150, 0.2);
-  position: relative;
-  z-index: 1;
-}
-
-/* Título */
-#title {
-  font-size: 32px;
-  font-weight: normal;
-  margin-bottom: 15px;
-}
-
-/* Subtítulo */
-.subtitle {
-  margin-top: 5px;
-  font-size: 20px;
-  opacity: 0.9;
-}
-
-/* Botões */
-#buttons {
-  margin-top: 30px;
-  position: relative;
-  height: 70px;
-}
-
-button {
-  padding: 12px 28px;
-  font-size: 18px;
-  font-weight: normal;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-family: Verdana, Tahoma, sans-serif;
-}
-
-/* SIM */
-#sim {
-  background: #f5e0b5;
-  color: #2e1b00;
-  margin-right: 15px;
-}
-
-/* NÃO */
-#nao {
-  background: #d9534f;
-  color: #fff;
-  position: absolute;
-  left: 60%;
-  top: 0;
-  transition: left 0.3s ease, top 0.3s ease;
-}
-
-/* Resultado */
-#result {
-  display: none;
-  margin-top: 25px;
-  font-size: 20px;
-}
+    #message { margin-top: 20px; font-size: 18px; }
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div id="title">Você gostaria de assistir Harry Potter comigo no cinema?</div>
-  <div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
+<canvas id="bg"></canvas>
 
-  <div id="buttons">
-    <button id="sim">SIM 💛</button>
+<div class="container">
+    <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
+    <p>Prometo pipoca, conversa e muito encanto ✨</p>
+    <button id="sim">SIM</button>
     <button id="nao">NÃO ❌</button>
-  </div>
-
-  <div id="result">
-    <p>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</p>
-    <p>Aguarde só <span id="count">12</span> segundos…</p>
-  </div>
+    <div id="message"></div>
 </div>
 
 <script>
-// Criar estrelas aleatórias
-for(let i=0; i<80; i++){
-  const star = document.createElement('div');
-  star.classList.add('star');
-  star.style.left = Math.random() * window.innerWidth + 'px';
-  star.style.top = Math.random() * window.innerHeight + 'px';
-  star.style.width = (Math.random()*3 + 1) + 'px';
-  star.style.height = star.style.width;
-  star.style.animationDuration = (Math.random()*3 + 2) + 's';
-  document.body.appendChild(star);
-}
+    // -------------------
+    // Temporizador 9s
+    // -------------------
+    const simBtn = document.getElementById('sim');
+    const naoBtn = document.getElementById('nao');
+    const message = document.getElementById('message');
 
-// Botão NÃO fugindo
-const btnNao = document.getElementById("nao");
+    simBtn.addEventListener('click', () => {
+        message.textContent = 'EU SABIA QUE VOCÊ DIRIA SIM ✨ Aguarde 9 segundos...';
+        setTimeout(() => {
+            window.location.href = 'https://wa.me/'; // link do WhatsApp
+        }, 9000);
+    });
 
-function fugir() {
-  const padding = 20;
-  const maxX = window.innerWidth - btnNao.offsetWidth - padding;
-  const maxY = window.innerHeight - btnNao.offsetHeight - padding;
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-  btnNao.style.left = x + "px";
-  btnNao.style.top = y + "px";
-}
+    naoBtn.addEventListener('click', () => {
+        message.textContent = 'Oh não! 😢';
+    });
 
-btnNao.addEventListener("mouseover", fugir);
-btnNao.addEventListener("touchstart", fugir);
+    // -------------------
+    // Fundo com luzinhas flutuantes
+    // -------------------
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
 
-// Botão SIM com 12 segundos
-const btnSim = document.getElementById("sim");
-const result = document.getElementById("result");
-const buttons = document.getElementById("buttons");
-const countEl = document.getElementById("count");
+    const stars = [];
+    const numStars = 80;
 
-btnSim.onclick = () => {
-  buttons.style.display = "none";
-  result.style.display = "block";
-
-  let count = 12;
-  const interval = setInterval(() => {
-    count--;
-    countEl.textContent = count;
-    if(count <= 0) {
-      clearInterval(interval);
-      const numero = "5585986928054";
-      const msg = encodeURIComponent("Aceito sim, assistir Harry Potter contigo!\nQuais os horários das sessões?");
-      window.location.href = `https://wa.me/${numero}?text=${msg}`;
+    function random(min, max) {
+        return Math.random() * (max - min) + min;
     }
-  }, 1000);
-};
+
+    for(let i=0; i<numStars; i++){
+        stars.push({
+            x: random(0,w),
+            y: random(0,h),
+            radius: random(1,3),
+            dx: random(-0.2,0.2),
+            dy: random(-0.2,0.2)
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0,0,w,h);
+        for(let i=0;i<stars.length;i++){
+            const s = stars[i];
+            s.x += s.dx;
+            s.y += s.dy;
+
+            if(s.x < 0 || s.x > w) s.dx = -s.dx;
+            if(s.y < 0 || s.y > h) s.dy = -s.dy;
+
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.radius, 0, Math.PI*2);
+            ctx.fillStyle = 'rgba(255,255,255,0.8)';
+            ctx.fill();
+        }
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    });
 </script>
 
 </body>
