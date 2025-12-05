@@ -1,138 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Convite Especial — Magia HP</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite Harry Potter</title>
 <style>
-* { box-sizing: border-box; margin:0; padding:0; }
-html,body { height:100%; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; font-family:Arial, sans-serif; overflow:hidden; background:#000010; color:#fff; display:flex; justify-content:center; align-items:center; }
 
-body {
-  font-family: Arial, sans-serif;
-  color: #fff;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  position: relative;
-}
-
-/* FUNDO CÉU NOTURNO */
-.bg {
-  position: fixed;
-  inset: 0;
-  z-index: -3;
-  background: radial-gradient(#000010, #000022);
-  overflow: hidden;
-}
-
-/* ESTRELAS FLUTUANTES */
-.star {
-  position: fixed;
-  border-radius: 50%;
-  background: white;
-  opacity: 0.8;
-  pointer-events: none;
-  animation: starFloat linear infinite;
-}
-@keyframes starFloat {
-  0% { transform: translateY(120vh) translateX(0) scale(0.5); opacity:0; }
+/* FUNDO ESTRELAS */
+.star { position:fixed; border-radius:50%; background:white; opacity:0.8; pointer-events:none; animation:floatStar linear infinite; }
+@keyframes floatStar {
+  0% { transform: translateY(120vh) scale(0.5); opacity:0; }
   10% { opacity:0.3; }
   50% { opacity:0.6; }
-  100% { transform: translateY(-120vh) translateX(50px) scale(1); opacity:0; }
+  100% { transform: translateY(-120vh) scale(1); opacity:0; }
 }
 
 /* PAINEL CENTRAL */
 .card {
-  width: min(920px,95%);
-  background: rgba(5,5,10,0.4);
+  background: rgba(0,0,0,0.6);
+  padding:30px;
   border-radius:14px;
-  padding:36px;
   text-align:center;
-  position: relative;
-  z-index:5;
-  backdrop-filter: blur(5px);
+  position:relative;
+  z-index:2;
+  width:min(900px,95%);
 }
-
-h1 { font-size: clamp(18px,2.6vw,34px); margin-bottom:18px; color:#ffd97a; letter-spacing:0.6px; }
-.subtitle { margin-bottom:18px; color:#f7ecd6; opacity:0.95; }
+h1 { color:#ffd97a; margin-bottom:20px; }
+.subtitle { color:#f7ecd6; opacity:0.9; margin-bottom:20px; }
 
 /* BOTÕES */
-#buttons { margin-top:14px; position: relative; height:56px; }
-button {
-  padding:12px 22px;
-  font-size:16px;
-  border-radius:10px;
-  border:none;
-  cursor:pointer;
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-#yes {
-  background: linear-gradient(135deg,#ffd97a,#d89f2a);
-  color: #1b0b00;
-  font-weight:700;
-  margin-right:12px;
-}
-#yes:active { transform: translateY(2px); }
-#no {
-  background: linear-gradient(135deg,#9b1c0e,#ff5d3e);
-  color:#fff;
-  position:absolute;
-  left:50%;
-  transform:translateX(20px);
-}
+#buttons { position:relative; height:50px; }
+button { padding:12px 25px; font-size:16px; border-radius:10px; border:none; cursor:pointer; transition: transform .1s; }
+#yes { background:#ffd97a; color:#1b0b00; margin-right:12px; font-weight:700; }
+#no { background:#ff4747; color:#fff; position:absolute; left:50%; transform:translateX(20px); }
 
 /* RESULTADO */
-#result { display:none; margin-top:22px; color:#fffbe6; }
-#result img.small { width:140px; margin:8px; border-radius:8px; }
+#result { display:none; margin-top:20px; color:#fffbe6; }
+#result img { width:140px; margin:8px; border-radius:8px; }
 
 /* ELEMENTOS FLUTUANTES */
 .floating {
-  position: fixed;
-  z-index:-1;
-  opacity:0.9;
+  position:fixed;
+  z-index:1;
   pointer-events:none;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6));
+  filter:drop-shadow(0 6px 12px rgba(0,0,0,0.6));
 }
-@keyframes floatUp {
-  0% { transform: translateY(110vh) translateX(0) rotate(0deg); opacity:0; }
-  10% { opacity:0.35; }
-  50% { opacity:0.55; }
-  100% { transform: translateY(-140vh) translateX(-20px) rotate(360deg); opacity:0; }
-}
-
-#carta1 { left:6%; width:120px; animation: floatUp 16s linear infinite; }
-#carta2 { left:74%; width:100px; animation: floatUp 19s linear infinite; }
-#carta3 { left:42%; width:110px; animation: floatUp 21s linear infinite; }
-#varinha1 { left:28%; width:96px; animation: floatUp 18s linear infinite; }
-#varinha2 { left:82%; width:96px; animation: floatUp 22s linear infinite; }
-#edwiges { left:52%; width:160px; animation: floatUp 24s linear infinite; opacity:0.6; }
-#brilho1 { left:20%; width:64px; animation: floatUp 12s linear infinite; opacity:0.9; filter: blur(2px); }
-#brilho2 { left:60%; width:48px; animation: floatUp 14s linear infinite; opacity:0.9; filter: blur(2px); }
-
-@media (max-width:720px) {
-  #no { left:auto; right:8%; transform:none; }
-  .floating { display:none; }
-  .card { padding:22px; }
-}
-
-/* PLAYER DE MÚSICA */
-.audio-controls { margin-top:14px; display:flex; gap:10px; justify-content:center; align-items:center; }
-.play-btn { background: linear-gradient(135deg,#e3b34a,#ffd97a); color:#1b0b00; padding:8px 14px; border-radius:10px; font-weight:700; cursor:pointer; border:none; }
-.small-note { font-size:13px; color:#f0e6d0; opacity:0.85; margin-top:6px; }
+@keyframes floatUp { 0%{transform:translateY(110vh) rotate(0deg); opacity:0;} 10%{opacity:0.35;} 50%{opacity:0.55;} 100%{transform:translateY(-140vh) rotate(360deg); opacity:0;} }
 </style>
 </head>
 <body>
 
-<div class="bg" aria-hidden="true"></div>
-
 <!-- ESTRELAS -->
 <script>
-for(let i=0;i<40;i++){
+for(let i=0;i<50;i++){
   const star=document.createElement('div');
   star.className='star';
   star.style.width=(2+Math.random()*3)+'px';
@@ -145,18 +67,18 @@ for(let i=0;i<40;i++){
 </script>
 
 <!-- ELEMENTOS FLUTUANTES -->
-<img id="carta1" class="floating" src="https://i.imgur.com/8G8b4Xv.png" alt="Carta de Hogwarts">
-<img id="carta2" class="floating" src="https://i.imgur.com/8G8b4Xv.png" alt="Carta de Hogwarts">
-<img id="carta3" class="floating" src="https://i.imgur.com/8G8b4Xv.png" alt="Carta de Hogwarts">
+<img class="floating" id="carta1" src="https://i.imgur.com/8G8b4Xv.png" style="left:10%;width:100px;animation:floatUp 15s linear infinite;">
+<img class="floating" id="carta2" src="https://i.imgur.com/8G8b4Xv.png" style="left:80%;width:120px;animation:floatUp 20s linear infinite;">
+<img class="floating" id="carta3" src="https://i.imgur.com/8G8b4Xv.png" style="left:45%;width:110px;animation:floatUp 18s linear infinite;">
 
-<img id="varinha1" class="floating" src="https://i.imgur.com/J3XHcP3.png" alt="Varinha">
-<img id="varinha2" class="floating" src="https://i.imgur.com/J3XHcP3.png" alt="Varinha">
+<img class="floating" id="varinha1" src="https://i.imgur.com/J3XHcP3.png" style="left:25%;width:90px;animation:floatUp 17s linear infinite;">
+<img class="floating" id="varinha2" src="https://i.imgur.com/J3XHcP3.png" style="left:70%;width:95px;animation:floatUp 19s linear infinite;">
 
-<img id="edwiges" class="floating" src="https://i.imgur.com/0p5rFxh.png" alt="Edwiges">
-<img id="brilho1" class="floating" src="https://i.imgur.com/4Jba88v.png" alt="Brilho">
-<img id="brilho2" class="floating" src="https://i.imgur.com/4Jba88v.png" alt="Brilho">
+<img class="floating" id="edwiges" src="https://i.imgur.com/0p5rFxh.png" style="left:55%;width:140px;animation:floatUp 22s linear infinite;opacity:0.7;">
+<img class="floating" id="brilho1" src="https://i.imgur.com/4Jba88v.png" style="left:15%;width:60px;animation:floatUp 12s linear infinite;opacity:0.9;filter:blur(2px);">
+<img class="floating" id="brilho2" src="https://i.imgur.com/4Jba88v.png" style="left:65%;width:50px;animation:floatUp 14s linear infinite;opacity:0.9;filter:blur(2px);">
 
-<div class="card" role="main">
+<div class="card">
 <h1>Você gostaria de assistir Harry Potter comigo no cinema?</h1>
 <div class="subtitle">Prometo pipoca, conversa e muito encanto ✨</div>
 
@@ -167,67 +89,39 @@ for(let i=0;i<40;i++){
 
 <div id="result">
   <h2>EU SABIA QUE VOCÊ DIRIA SIM ✨💛</h2>
-  <p class="small-note">Vou garantir os ingressos — marca só o dia que você pode!</p>
-
-  <div style="margin-top:12px;">
-    <img class="small" src="https://i.imgur.com/Q3vQ6QK.png" alt="poster1">
-    <img class="small" src="https://i.imgur.com/ZfYfC0f.jpeg" alt="poster2">
-    <img class="small" src="https://i.imgur.com/DLwLd6R.jpeg" alt="poster3">
+  <p>Vou garantir os ingressos — marca só o dia que você pode!</p>
+  <div>
+    <img src="https://i.imgur.com/Q3vQ6QK.png" alt="poster1">
+    <img src="https://i.imgur.com/ZfYfC0f.jpeg" alt="poster2">
+    <img src="https://i.imgur.com/DLwLd6R.jpeg" alt="poster3">
   </div>
-</div>
-
-<div class="audio-controls">
-  <audio id="bg-audio" src="magical-fantasy.mp3" preload="auto"></audio>
-  <button id="playToggle" class="play-btn" onclick="togglePlay()">Tocar magia ✨</button>
-  <div id="audioStatus" class="small-note">Clique em "Tocar magia" se a música não tocar automaticamente.</div>
 </div>
 </div>
 
 <script>
 function escapeButton(){
-  const noButton=document.getElementById("no");
+  const no=document.getElementById('no');
   const padding=20;
-  const maxX=window.innerWidth-noButton.offsetWidth-padding;
-  const maxY=window.innerHeight-noButton.offsetHeight-padding;
+  const maxX=window.innerWidth-no.offsetWidth-padding;
+  const maxY=window.innerHeight-no.offsetHeight-padding;
   let x=Math.random()*(maxX-padding)+padding;
   let y=Math.random()*(maxY-padding)+padding;
-  noButton.style.left=x+'px';
-  noButton.style.top=y+'px';
+  no.style.left=x+'px';
+  no.style.top=y+'px';
 }
 
 function sayYes(){
-  document.getElementById("buttons").style.display="none";
-  document.getElementById("result").style.display="block";
-  const audio=document.getElementById('bg-audio');
-  if(audio){ audio.currentTime=0; audio.play().catch(()=>{}); updatePlayButton(); }
+  document.getElementById('buttons').style.display='none';
+  document.getElementById('result').style.display='block';
 }
 
-const audio=document.getElementById('bg-audio');
-const playBtn=document.getElementById('playToggle');
-const status=document.getElementById('audioStatus');
-
-function updatePlayButton(){
-  if(!audio) return;
-  if(audio.paused){
-    playBtn.textContent='Tocar magia ✨';
-    status.textContent='Clique em "Tocar magia" para ouvir o tema.';
-  }else{
-    playBtn.textContent='Pausar magia ⏸';
-    status.textContent='Música tocando — aproveite ✨';
-  }
-}
-
-function togglePlay(){
-  if(!audio) return alert('Nenhum arquivo de áudio encontrado. Faça upload de "magical-fantasy.mp3".');
-  if(audio.paused){ audio.play().then(updatePlayButton).catch(()=>alert('Clique novamente para tocar a música.')); }
-  else { audio.pause(); updatePlayButton(); }
-}
-
+// Ajusta posição inicial do NÃO
 window.addEventListener('load',()=>{
   const no=document.getElementById('no');
   if(no){ no.style.left=(window.innerWidth/2+20)+'px'; no.style.top=(window.innerHeight/2)+'px'; }
 });
 
+// Ajusta ao redimensionar
 window.addEventListener('resize',()=>{
   const no=document.getElementById('no');
   if(no){
@@ -242,5 +136,6 @@ window.addEventListener('resize',()=>{
   }
 });
 </script>
+
 </body>
 </html>
